@@ -1361,6 +1361,9 @@ public class CrazyCrates {
     }
     
     private ItemStack getKey(FileConfiguration file) {
+        ItemStack editorItem = file.getItemStack("Crate.PhysicalKey.EditorItem");
+        if (editorItem != null)
+            return editorItem;
         String name = file.getString("Crate.PhysicalKey.Name");
         List<String> lore = file.getStringList("Crate.PhysicalKey.Lore");
         String id = file.getString("Crate.PhysicalKey.Item");
@@ -1371,10 +1374,15 @@ public class CrazyCrates {
         return new ItemBuilder().setMaterial(id).setName(name).setLore(lore).setGlowing(glowing).build();
     }
     
-    private ItemBuilder getDisplayItem(FileConfiguration file, String prize) {
+    private ItemStack getDisplayItem(FileConfiguration file, String prize) {
         String path = "Crate.Prizes." + prize + ".";
         ItemBuilder itemBuilder = new ItemBuilder();
         try {
+            String editorPreviewItemPath = "Crate.Prizes." + prize + ".EditorDisplayItem";
+            if (file.getString(editorPreviewItemPath) != null) {
+                return file.getItemStack(editorPreviewItemPath);
+            }
+
             itemBuilder.setMaterial(file.getString(path + "DisplayItem"))
             .setAmount(file.getInt(path + "DisplayAmount", 1))
             .setName(file.getString(path + "DisplayName"))
@@ -1393,9 +1401,9 @@ public class CrazyCrates {
                     }
                 }
             }
-            return itemBuilder;
+            return itemBuilder.build();
         } catch (Exception e) {
-            return new ItemBuilder().setMaterial("RED_TERRACOTTA", "STAINED_CLAY:14").setName("&c&lERROR").setLore(Arrays.asList("&cThere is an error", "&cFor the reward: &c" + prize));
+            return new ItemBuilder().setMaterial("RED_TERRACOTTA", "STAINED_CLAY:14").setName("&c&lERROR").setLore(Arrays.asList("&cThere is an error", "&cFor the reward: &c" + prize)).build();
         }
     }
     

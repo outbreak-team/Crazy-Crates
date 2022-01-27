@@ -100,6 +100,27 @@ public class Crate {
     public CrateManager getManager() {
         return manager;
     }
+
+    /**
+     * Set Item as prize preview in the Crate.
+     * @param prize Prize whose preview item is changing.
+     * @param item The ItemStack that is being set as preview.
+     */
+    public void setPreviewItem(String prize, ItemStack item) {
+        String path = "Crate.Prizes." + prize + ".EditorDisplayItem";
+        file.set(path, item);
+        fileManager.saveFile(fileManager.getFile(name));
+    }
+
+    /**
+     * Set Item as key of the Crate.
+     * @param item The ItemStack that is being set as key.
+     */
+    public void setKeyItem(ItemStack item) {
+        String path = "Crate.PhysicalKey.EditorItem";
+        file.set(path, item);
+        fileManager.saveFile(fileManager.getFile(name));
+    }
     
     /**
      * Set the preview lines for a Crate.
@@ -502,7 +523,8 @@ public class Crate {
             if (!enchantments.isEmpty()) {
                 file.set(path + ".DisplayEnchantments", enchantments);
             }
-            file.set(path + ".DisplayItem", cc.useNewMaterial() ? item.getType().name() : item.getType().name() + ":" + item.getDurability());
+            file.set(path + ".EditorDisplayItem", item);
+//            file.set(path + ".DisplayItem", cc.useNewMaterial() ? item.getType().name() : item.getType().name() + ":" + item.getDurability());
             file.set(path + ".DisplayAmount", item.getAmount());
             file.set(path + ".MaxRange", 100);
             file.set(path + ".Chance", 50);

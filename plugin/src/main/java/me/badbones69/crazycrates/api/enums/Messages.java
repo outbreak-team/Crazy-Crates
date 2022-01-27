@@ -8,7 +8,11 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public enum Messages {
-    
+    PRIZE_PREVIEW_SET_WITH_EDITOR("Prize-Preview-Set-With-Editor", "&7The item has been set as preview for prize #%prize%&7 in the %crate%&7 crate."),
+    NO_ITEM_IN_HAND_TO_SET_PREVIEW("No-Item-In-Hand-To-Set-Preview", "&cYou need to have an item in your hand to set it as preview."),
+    NO_ITEM_IN_HAND_TO_SET_KEY_ITEM("No-Item-In-Hand-To-Set-Key-Item", "&cYou need to have an item in your hand to set it as key."),
+    KEY_ITEM_SET_WITH_EDITOR("Key-Item-Set-With-Editor", "&7The item has been set as key for the %crate%&7 crate."),
+
     NO_TELEPORTING("No-Teleporting", "&cYou may not teleport away while opening a crate."),
     NO_COMMANDS_WHILE_CRATE_OPENED("No-Commands-While-In-Crate", "&cYou are not allowed to use commands while opening Crates."),
     NO_KEY("No-Key", "&cYou must have a %key% &cin your hand to use that Crate."),

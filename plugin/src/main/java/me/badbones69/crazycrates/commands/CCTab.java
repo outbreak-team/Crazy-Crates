@@ -22,6 +22,8 @@ public class CCTab implements TabCompleter {
         if (args.length == 1) {// /cc
             if (hasPermission(sender, "access")) completions.add("help");
             if (hasPermission(sender, "additem")) completions.add("additem");
+            if (hasPermission(sender, "setpreviewitem")) completions.add("setpreviewitem");
+            if (hasPermission(sender, "setkeyitem")) completions.add("setkeyitem");
             if (hasPermission(sender, "admin")) completions.add("admin");
             if (hasPermission(sender, "convert")) completions.add("convert");
             if (hasPermission(sender, "list")) completions.add("list");
@@ -41,6 +43,8 @@ public class CCTab implements TabCompleter {
         } else if (args.length == 2) {// /cc arg0
             switch (args[0].toLowerCase()) {
                 case "additem":
+                case "setpreviewitem":
+                case "setkeyitem":
                 case "open":
                 case "forceopen":
                 case "transfer":

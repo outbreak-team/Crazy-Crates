@@ -120,6 +120,58 @@ public class CCCommand implements CommandExecutor {
                     sender.sendMessage(Methods.getPrefix("&cYou need to use /cc set1/set2 to set the connors of your schematic."));
                 }
                 return true;
+            } else if (args[0].equalsIgnoreCase("setkeyitem")) {
+                if (!Methods.permCheck(sender, "admin")) return true;
+                Player player = (Player) sender;
+                ItemStack item = cc.getNMSSupport().getItemInMainHand(player);
+                if (item != null && item.getType() != Material.AIR) {
+                    Crate crate = cc.getCrateFromName(args[1]);
+                    if (crate != null) {
+                        try {
+                            crate.setKeyItem(item);
+                        } catch (Exception e) {
+                            Bukkit.getLogger().warning(fileManager.getPrefix() + "Failed to set item as key.");
+                            e.printStackTrace();
+                        }
+                        cc.loadCrates();
+                        HashMap<String, String> placeholders = new HashMap<>();
+                        placeholders.put("%Crate%", crate.getName());
+                        player.sendMessage(Messages.KEY_ITEM_SET_WITH_EDITOR.getMessage(placeholders));
+                    } else {
+                        player.sendMessage(Messages.NOT_A_CRATE.getMessage("%Crate%", args[1]));
+
+                    }
+                } else {
+                    player.sendMessage(Messages.NO_ITEM_IN_HAND_TO_SET_KEY_ITEM.getMessage());
+                }
+                return true;
+            } else if (args[0].equalsIgnoreCase("setpreviewitem")) {
+                if (!Methods.permCheck(sender, "admin")) return true;
+                Player player = (Player) sender;
+                ItemStack item = cc.getNMSSupport().getItemInMainHand(player);
+                if (item != null && item.getType() != Material.AIR) {
+                    Crate crate = cc.getCrateFromName(args[1]);
+                    if (crate != null) {
+                        String prize = args[2];
+                        try {
+                            crate.setPreviewItem(prize, item);
+                        } catch (Exception e) {
+                            Bukkit.getLogger().warning(fileManager.getPrefix() + "Failed to set item as preview.");
+                            e.printStackTrace();
+                        }
+                        cc.loadCrates();
+                        HashMap<String, String> placeholders = new HashMap<>();
+                        placeholders.put("%Crate%", crate.getName());
+                        placeholders.put("%Prize%", prize);
+                        player.sendMessage(Messages.PRIZE_PREVIEW_SET_WITH_EDITOR.getMessage(placeholders));
+                    } else {
+                        player.sendMessage(Messages.NOT_A_CRATE.getMessage("%Crate%", args[1]));
+
+                    }
+                } else {
+                    player.sendMessage(Messages.NO_ITEM_IN_HAND_TO_SET_PREVIEW.getMessage());
+                }
+                return true;
             } else if (args[0].equalsIgnoreCase("additem")) {
                 // /cc additem0 <crate>1 <prize>2
                 if (!Methods.permCheck(sender, "admin")) return true;

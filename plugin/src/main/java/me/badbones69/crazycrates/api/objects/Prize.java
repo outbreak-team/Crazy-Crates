@@ -81,6 +81,40 @@ public class Prize {
         this.blackListPermissions.replaceAll(String :: toLowerCase);
         this.altPrize = altPrize;
     }
+
+    /**
+     *
+     * @param name The name of the prize.
+     * @param displayItemStack The display item that is shown in the preview and for what the player wins.
+     * @param messages The messages it sends to the player that wins it.
+     * @param commands The commands that run when the prize is won.
+     * @param items The ItemStacks that are given to the player that wins.
+     * @param crate The name of the crate the prize belongs to.
+     * @param chance The chance the prize has of winning.
+     * @param maxRange The max range the prize has.
+     * @param firework Set if the prize plays an exploding firework if won.
+     * @param blackListPermissions The list of black permissions that the prize has.
+     * @param tiers The tiers the prize is in.
+     * @param altPrize The alternative prize that is won if the player has a blacklist permission.
+     */
+    public Prize(String name, ItemStack displayItemStack, List<String> messages, List<String> commands,
+                 List<ItemStack> items, List<ItemBuilder> itemBuilders, String crate, int chance, int maxRange, boolean firework, List<String> blackListPermissions,
+                 List<Tier> tiers, Prize altPrize) {
+        this.name = name != null ? name : "&4No name Found!";
+        this.crate = crate;
+        this.items = items != null ? items : new ArrayList<>();
+        this.itemBuilders = itemBuilders != null ? itemBuilders : new ArrayList<>();
+        this.chance = chance;
+        this.firework = firework;
+        this.maxRange = maxRange;
+        this.tiers = tiers != null ? tiers : new ArrayList<>();
+        this.messages = messages != null ? messages : new ArrayList<>();
+        this.commands = commands != null ? commands : new ArrayList<>();
+        this.displayItemStack = displayItemStack;
+        this.blackListPermissions = blackListPermissions != null ? blackListPermissions : new ArrayList<>();
+        this.blackListPermissions.replaceAll(String :: toLowerCase);
+        this.altPrize = altPrize;
+    }
     
     /**
      * @return Returns the name of the prize.
