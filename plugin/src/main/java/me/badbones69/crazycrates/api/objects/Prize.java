@@ -111,6 +111,7 @@ public class Prize {
         this.messages = messages != null ? messages : new ArrayList<>();
         this.commands = commands != null ? commands : new ArrayList<>();
         this.displayItemStack = displayItemStack;
+        this.displayItem = displayItemStack == null ? new ItemBuilder() : ItemBuilder.convertItemStack(displayItemStack);
         this.blackListPermissions = blackListPermissions != null ? blackListPermissions : new ArrayList<>();
         this.blackListPermissions.replaceAll(String :: toLowerCase);
         this.altPrize = altPrize;
